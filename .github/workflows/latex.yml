@@ -1,0 +1,50 @@
+name: Build LaTeX & Update Preview
+
+on:
+  push:
+    branches: [ main ]
+    # Re-run when TeX or workflow changes
+    paths:
+      - '**/*.tex'
+      - '.github/workflows/latex.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # needed to commit artifacts back to the repo
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Compile LaTeX
+      - name: Compile PDF
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: resume.tex
+          # latexmk_use_xelatex: true
+          # latexmk_use_lualatex: true
+
+      # Make a PNG preview of the first page for README
+      - name: Generate PNG preview
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+          mkdir -p assets
+          # first page only, single file: assets/preview.png
+          pdftoppm -png -singlefile -f 1 -l 1 main.pdf assets/preview
+
+      # Move the PDF into assets/ too
+      - name: Collect artifacts
+        run: |
+          mkdir -p assets
+          mv main.pdf assets/
+
+      # Commit preview + PDF back to repo
+      - name: Commit artifacts
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: "assets/main.pdf assets/preview.png"
+          message: "chore(ci): update compiled PDF & preview [skip ci]"
+          default_author: github_actions
