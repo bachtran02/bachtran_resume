@@ -3,7 +3,6 @@ name: Build LaTeX & Update Preview
 on:
   push:
     branches: [ main ]
-    # Re-run when TeX or workflow changes
     paths:
       - '**/*.tex'
       - '.github/workflows/latex.yml'
@@ -13,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # needed to commit artifacts back to the repo
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,25 +25,27 @@ jobs:
           # latexmk_use_xelatex: true
           # latexmk_use_lualatex: true
 
-      # Make a PNG preview of the first page for README
+      - name: Rename PDF with compile date
+        run: |
+          ts="$(date -u '+%m%d%y')"
+          mkdir -p assets
+          mv resume.pdf "assets/bachtran_resume_${ts}.pdf"
+          # keep a stable name for README links (optional but handy)
+          cp "assets/bachtran_resume_${ts}.pdf" "assets/bachtran_resume.pdf"
+          echo "RENAMED_PDF=assets/bachtran_resume_${ts}.pdf" >> $GITHUB_ENV
+
       - name: Generate PNG preview
         run: |
           sudo apt-get update
           sudo apt-get install -y poppler-utils
-          mkdir -p assets
-          # first page only, single file: assets/preview.png
-          pdftoppm -png -singlefile -f 1 -l 1 main.pdf assets/preview
+          # Use the renamed file as input, emit assets/preview.png
+          pdftoppm -png -singlefile -f 1 -l 1 "${RENAMED_PDF}" assets/preview
 
-      # Move the PDF into assets/ too
-      - name: Collect artifacts
-        run: |
-          mkdir -p assets
-          mv main.pdf assets/
-
-      # Commit preview + PDF back to repo
+      # Commit preview + PDFs back to repo
       - name: Commit artifacts
+        if: github.ref == 'refs/heads/main'
         uses: EndBug/add-and-commit@v9
         with:
-          add: "assets/main.pdf assets/preview.png"
-          message: "chore(ci): update compiled PDF & preview [skip ci]"
+          add: "${{ env.RENAMED_PDF }} assets/preview.png assets/bachtran_resume.pdf"
+          message: "chore(ci): update resume PDF(s) & preview [skip ci]"
           default_author: github_actions
