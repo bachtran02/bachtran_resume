@@ -5,36 +5,53 @@
     \resumeProjectHeading
     {\textbf{Edstem.py} $|$ \emph{Python, asyncio, aiohttp, websockets} $|$ github.com/bachtran02/edpy}{}
     \resumeItemListStart
+        % \resumeItem{
+        % Designed and implemented a client library for EdSTEM, an educational Q\&A platform with 1M+ users, enabling third-party platforms to ingest real-time course and thread activity.
+        % }
         \resumeItem{
-        Designed and implemented a client library for EdSTEM, an educational Q\&A platform with 1M+ users, enabling third-party platforms to ingest real-time course and thread activity.
+        Authored the first open-source asynchronous Python wrapper for EdSTEM API (1M+ users), providing developers with a streamlined interface to build real-time applications and third-party integrations.
         }
         \resumeItem{
-       Reverse-engineered EdSTEM’s internal pub/sub system to decode undocumented WebSocket events and extract low-level payloads for custom API methods.
+       Reverse-engineered EdSTEM’s internal WebSocket pub/sub system to decode undocumented events and extract low-level payloads (i.e thread, comment) for custom API methods.
         }
-        \resumeItem{
-       Deployed a Python webhook service that streams Ed post notifications to Discord platform, achieving 99\% uptime.}
+       %  \resumeItem{
+       % Deployed a Python webhook service that streams Ed post notifications to Discord platform, achieving 99\% uptime.}
+       \resumeItem{
+       Built and deployed a webhook service using the Edstem.py library to stream course notifications from EdSTEM to Discord platform, currently serving over 500 students across multiple UC Berkeley communities.
+       }
 
     \resumeItemListEnd
 
-    \resumeProjectHeading
-    {\textbf{GradescopeSync} $|$ \emph{Python, Beautiful Soup, GitHub Actions} $|$ github.com/bachtran02/GradescopeSync}{}
-    \resumeItemListStart        
-        % \resumeItem{
-        % Developed a modular Python scraper leveraging Beautiful Soup to programmatically extract and structure assignment metadata from Gradescope's authenticated interface.
-        % }
-        % \resumeItem{
-        % Automated the syncing of Gradescope assignment deadlines with Google Tasks to support efficient task tracking.
-        %  }
-        % \resumeItem{
-        % Orchestrated a CI-based scheduling system with GitHub Actions to dispatch daily assignment summaries via text platforms, ensuring timely reminders without user intervention.
-        % }
-        \resumeItem{
-        Engineered a web scraper to extract structured assignment data from Gradescope’s authenticated interface, improving deadline visibility and task organization for STEM students.
-        }
-        \resumeItem{
-        Orchestrated a CI-based scheduler with GitHub Actions to automate daily SMS delivery of assignment summaries, maintaining 99\% reliability without manual input.
-        }
-    \resumeItemListEnd
+    % \resumeProjectHeading
+    % {\textbf{GradescopeSync} $|$ \emph{Python, Beautiful Soup, GitHub Actions} $|$ github.com/bachtran02/GradescopeSync}{}
+    % \resumeItemListStart        
+    %     % \resumeItem{
+    %     % Developed a modular Python scraper leveraging Beautiful Soup to programmatically extract and structure assignment metadata from Gradescope's authenticated interface.
+    %     % }
+    %     % \resumeItem{
+    %     % Automated the syncing of Gradescope assignment deadlines with Google Tasks to support efficient task tracking.
+    %     %  }
+    %     % \resumeItem{
+    %     % Orchestrated a CI-based scheduling system with GitHub Actions to dispatch daily assignment summaries via text platforms, ensuring timely reminders without user intervention.
+    %     % }
+    %     \resumeItem{
+    %     Engineered a web scraper to extract structured assignment data from Gradescope’s authenticated interface, improving deadline visibility and task organization for STEM students.
+    %     }
+    %     \resumeItem{
+    %     Orchestrated a CI-based scheduler with GitHub Actions to automate daily SMS delivery of assignment summaries, maintaining 99\% reliability without manual input.
+    %     }
+    % \resumeItemListEnd
+
+
+    % \resumeProjectHeading
+    % {\textbf{Pintos Operating System} $|$ \emph{C, GDB, x86 architecture} }{}
+    % \resumeItemListStart
+    %     \resumeItem{
+    %     Enhanced the file system to support dynamic file growth via non-contiguous block allocation and a buffer cache with a clock-based eviction strategy, optimizing disk utilization and I/O performance.
+    %     }
+        
+    % \resumeItemListEnd
+    
 
     \resumeProjectHeading
     {\textbf{Pintos Operating System} $|$ \emph{C, GDB, x86 architecture} }{}
